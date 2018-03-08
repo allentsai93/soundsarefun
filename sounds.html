@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Allen Tsai's Patatap Clone</title>
 	<script type="text/javascript" src="paper-full.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.js"></script>
 	<link rel="stylesheet" type="text/css" href="sounds.css">
@@ -169,6 +169,19 @@
 
 	var circles = [];
 
+	function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 10);
+	}
+
 	function onKeyDown(event) {
 		if(keyData[event.key]){
 			var maxPoint = new Point(view.size.width, view.size.height);
@@ -178,7 +191,12 @@
 			newCircle.fillColor = keyData[event.key].color;
 			keyData[event.key].sound.play();
 			circles.push(newCircle);
-
+			var h1 = document.querySelector("h1");
+			h1.style.color = keyData[event.key].color;
+			var btn = document.querySelector(".btn");
+			btn.style.background = keyData[event.key].color;
+			var text = document.querySelector("h2");
+			fade(text);
 		}
 	}
 
@@ -192,11 +210,17 @@
 				i--;
 			}
 		}
+
 	}
 
 	</script>
 </head>
 <body>
 	<canvas id="myCanvas" resize></canvas>
+	<div>
+		<h1>Patatap Clone</h1>
+		<h2>Click any key from [A-Z] to play, Sound must be on</h2>
+		<button class="btn"><a href="https://allentsai93.github.io/">Back To Portfolio</a></button>
+	</div>
 </body>
 </html>
